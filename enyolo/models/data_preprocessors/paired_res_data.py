@@ -17,13 +17,14 @@ from enyolo.registry import MODELS
 class PairedResDataPreprocessor(ImgDataPreprocessor):
     def forward(self, data: dict, training: bool = False,
                 keys=['inputs', 'targets']) -> Union[dict, list]:
-        '''Perform normalization, padding and bgr2rgb conversion based on
+        '''Perform normalization, padding and BGR2RGB conversion based on
         `BaseDataPreprocessor`.'''
         
-        data = self.cast_data(data)
+        data = self.cast_data(data)  # Copying data to the target device.
         for k in keys:
             if k in data.keys():
-                _batch_inputs = data[k]
+                _batch_inputs = data[k]  # only modified this part,我觉得是要引入target
+                
                 if is_seq_of(_batch_inputs, torch.Tensor):
                     batch_inputs = []
                     for _batch_input in _batch_inputs:
