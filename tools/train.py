@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import argparse
-import logging
+import logging # new
 import os
 import os.path as osp
 
@@ -83,6 +83,7 @@ def main():
                                 osp.splitext(osp.basename(args.config))[0])
 
     # enable automatic-mixed-precision training
+    # 添加了日志功能
     if args.amp is True:
         optim_wrapper = cfg.optim_wrapper.type
         if optim_wrapper == 'AmpOptimWrapper':
